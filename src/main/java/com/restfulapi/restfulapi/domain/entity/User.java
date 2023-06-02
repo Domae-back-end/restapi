@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @Getter
 @ToString(callSuper = true)
 @Table(indexes = {
@@ -13,7 +16,7 @@ import lombok.ToString;
         @Index(columnList = "nickname")
 })
 @Entity
-public class User extends AuditingFields{
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +37,23 @@ public class User extends AuditingFields{
     @Setter
     @Column(nullable = false)
     private String nickname;
+
+    @Column
+    private Timestamp registeredAt;
+    @Column
+    private Timestamp updatedAt;
+
+    @PrePersist
+    void registeredAt() {
+        this.registeredAt = Timestamp.from(Instant.now());
+    }
+
+    @PreUpdate
+    void updatedAt() {
+        this.updatedAt = Timestamp.from(Instant.now());
+    }
+
+
 
     protected User(){}
 
