@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
-    NOT_YET(HttpStatus.UNAUTHORIZED, "아직.")
+    USERID_SAME(HttpStatus.UNAUTHORIZED, "동일한 아이디가 있습니다.")
     ;
 
     private final HttpStatus status;
