@@ -1,5 +1,6 @@
 package com.restfulapi.restfulapi.domain.entity;
 
+import com.restfulapi.restfulapi.domain.type.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ import java.time.Instant;
         @Index(columnList = "nickname")
 })
 @Entity
-public class User{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +39,11 @@ public class User{
     @Column(nullable = false)
     private String nickname;
 
+    @Setter
+    @Enumerated
+    private UserRole role = UserRole.USER;
+
+
     @Column
     private Timestamp registeredAt;
     @Column
@@ -54,8 +60,8 @@ public class User{
     }
 
 
-
-    protected User(){}
+    protected User() {
+    }
 
     private User(String userId, String password, String email, String nickname) {
         this.userId = userId;
@@ -65,7 +71,7 @@ public class User{
     }
 
     public static User getEntity(String userId, String password, String email, String nickname) {
-        return new User(userId,password,email,nickname);
+        return new User(userId, password, email, nickname);
     }
 
 
