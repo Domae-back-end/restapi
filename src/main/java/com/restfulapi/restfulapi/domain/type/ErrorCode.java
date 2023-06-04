@@ -14,7 +14,11 @@ public enum ErrorCode {
 
     //로그인
     USER_NOT_JOIN(HttpStatus.UNAUTHORIZED,"회원가입이 안된 유저입니다."),
-    USER_NOT_LOGIN(HttpStatus.UNAUTHORIZED,"아이디 또는 비밀번호가 맞지 않습니다.")
+    USER_NOT_LOGIN(HttpStatus.UNAUTHORIZED,"아이디 또는 비밀번호가 맞지 않습니다."),
+
+    //비밀번호 찾기
+    FORGET_NO_ADDRESS(HttpStatus.BAD_REQUEST, "잘못된 주소 접근입니다.");
+
     ;
 
     private final HttpStatus status;
