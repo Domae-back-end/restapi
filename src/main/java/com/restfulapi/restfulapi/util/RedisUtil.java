@@ -27,6 +27,7 @@ public class RedisUtil {
     }
 
 
+
     //Data Type : List
     public void setListLeft(String key, String value) {
         myRedisTemplate.opsForList().leftPush(key, value);
