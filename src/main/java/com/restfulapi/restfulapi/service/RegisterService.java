@@ -1,5 +1,6 @@
 package com.restfulapi.restfulapi.service;
 
+import com.restfulapi.restfulapi.config.PasswordEncoding;
 import com.restfulapi.restfulapi.domain.entity.User;
 import com.restfulapi.restfulapi.domain.request.JoinRequest;
 import com.restfulapi.restfulapi.domain.type.ErrorCode;
@@ -16,12 +17,16 @@ import java.util.List;
 public class RegisterService {
 
     private final UserRepository userRepository;
-
+    private final PasswordEncoding passwordEncoding;
     public void register(JoinRequest req){
         if(!(userRepository.findByUserId(req.userId()).isEmpty())){
             throw new ApplicationException(ErrorCode.USERID_SAME);
         }
-        userRepository.save(User.getEntity(req.userId(),req.password(),req.email(),req.nickname()));
+        userRepository.save(User.getEntity(
+                req.userId(),
+                passwordEncoding.getEncoding().encode(req.password()),
+                req.email(),
+                req.nickname()));
     }
 
 

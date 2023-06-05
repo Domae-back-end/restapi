@@ -1,5 +1,6 @@
 package com.restfulapi.restfulapi.service;
 
+import com.restfulapi.restfulapi.config.PasswordEncoding;
 import com.restfulapi.restfulapi.domain.entity.User;
 import com.restfulapi.restfulapi.domain.request.EmailRequest;
 import com.restfulapi.restfulapi.domain.request.ForgetEmailRequest;
@@ -29,6 +30,7 @@ public class ForgetService {
     private final EmailUtil emailUtil;
     private final RedisUtil redisUtil;
     private final UserRepository userRepository;
+    private final PasswordEncoding passwordEncoding;
 
     public String sendMail(EmailRequest req) {
         String randomStr = randomStr();
@@ -50,7 +52,7 @@ public class ForgetService {
                 .orElseThrow(() -> {
                     throw new ApplicationException(ErrorCode.USER_NOT_JOIN);
                 });
-        user.setPassword(req.password());
+        user.setPassword(passwordEncoding.getEncoding().encode(req.password()));
         userRepository.save(user);
         redisUtil.setString("forget" + req.email(), "", 1, TimeUnit.MILLISECONDS);
 

@@ -22,7 +22,7 @@ public class ForgetController {
         return ExceptionResponse.success(randomStr);
     }
 
-    @RequestMapping(value = "/api/v1/forget/{forgetCode}")
+    @RequestMapping(value = "/api/forget/{forgetCode}")
     public ExceptionResponse<String> forgetEmaillSuccess(
             @PathVariable("forgetCode") String forgetCode,
             @RequestBody ForgetEmailRequest req
